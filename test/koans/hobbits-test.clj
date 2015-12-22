@@ -113,7 +113,7 @@
 
 (deftest test-hit-a-hobbit
   "should returns parts of passed in hobbit"
-  (is true? (some #(= "head" (:name %)) (hit-a-hobbit [{:name "head" :size 3} {:name "head" :size 2}]))))
+  (is true? (some #(= "head" (:name %)) (hit-a-hobbit [{:name "head" :size 3}]))))
 
 (defmethod report :begin-test-ns [m]
   (with-test-out
