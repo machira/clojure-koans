@@ -94,6 +94,7 @@
 (deftest test-find-part
   "should return the part of a hobbit that matches a given cummulative weight"
   (is (= {:name "left-eye" :size 3} (find-part 5 [{:name "right-eye" :size 3} {:name "left-eye" :size 3}])))
+  (is (= {:name "left-eye" :size 3} (find-part 3 [{:name "left-eye" :size 3}])))
 
   "should return first part for a negative, or 0"
   (is (= {:name "left-eye" :size 3} (find-part 0 [{:name "left-eye" :size 3}])))

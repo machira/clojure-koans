@@ -26,11 +26,11 @@
 (defn find-part
   "returns the part of the hobbits body that corresponds to a given number, based on total size"
   [cummulative_target, symmetric_hobbit]
-  (loop [cumlative_size 0 remaining_parts symmetric_hobbit]
-    (if (empty? remaining_parts) {}
-      (if (>= (+ cumlative_size (:size (first remaining_parts))) cummulative_target)
-      (first remaining_parts)
-      (recur (+ cumlative_size (:size (first remaining_parts))) (rest remaining_parts))))))
+  (loop [cumlative_size 0 [part1 & other_parts] symmetric_hobbit]
+    (if (nil? part1) {}
+      (if (>= (+ cumlative_size (:size part1)) cummulative_target)
+      part1
+      (recur (+ cumlative_size (:size part1)) other_parts)))))
 
 (defn sort-body-parts-by-size
   "returns a list of body parts sorted descending by size"
