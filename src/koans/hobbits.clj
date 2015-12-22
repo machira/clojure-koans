@@ -18,7 +18,26 @@
   [hobbit-body]
   (reduce (fn [result part] (into result (unique-parts-only part))) [] hobbit-body))
 
-;(def hit
-;  "determines which part of a hobbit has been hit"
-;  [hobbit]
-;  (reduce #(+ %1 (:size %2)) 0 (symmetrize-by-reduce hobbit)))
+(defn total-hobbit-size
+  "determines total hobbit size"
+  [hobbit]
+  (reduce #(+ %1 (:size %2)) 0 (symmetrize-by-reduce hobbit)))
+
+(defn find-part
+  "returns the part of the hobbits body that corresponds to a given number, based on total size"
+  [cummulative_target, symmetric_hobbit]
+  (loop [cumlative_size 0 remaining_parts symmetric_hobbit]
+    (if (empty? remaining_parts) {}
+      (if (>= (+ cumlative_size (:size (first remaining_parts))) cummulative_target)
+      (first remaining_parts)
+      (recur (+ cumlative_size (:size (first remaining_parts))) (rest remaining_parts))))))
+
+(defn sort-body-parts-by-size
+  "returns a list of body parts sorted descending by size"
+  [body-parts]
+  (sort-by :size #(compare %2 %1) body-parts))
+
+(defn hit-a-hobbit
+  "hits a hobbit in a random place"
+  [hobbit]
+  (:name (find-part (rand-int (total-hobbit-size hobbit)) (sort-body-parts-by-size (symmetrize-by-reduce hobbit)))))

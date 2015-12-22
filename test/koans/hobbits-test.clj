@@ -84,6 +84,36 @@
   (is (= sym-body-parts (symmetrize-by-reduce asym-hobbit-body-parts)))
   )
 
+(deftest test-hobbit-weight
+  "should return total hobbit weight"
+  (is (= 1 (total-hobbit-size [{:name "head", :size 1}])))
+  (is (= 4 (total-hobbit-size [{:name "bauch", :size 4}])))
+  (is (= 2 (total-hobbit-size [{:name "head", :size 1} {:name "nose", :size 1}]))))
+  (is (= 10 (total-hobbit-size [{:name "chin", :size 1}{:name "left-eye", :size 1}{:name "nose", :size 3}{:name "bauch", :size 4}])))
+
+(deftest test-find-part
+  "should return the part of a hobbit that matches a given cummulative weight"
+  (is (= {:name "left-eye" :size 3} (find-part 5 [{:name "right-eye" :size 3} {:name "left-eye" :size 3}])))
+
+  "should return first part for a negative, or 0"
+  (is (= {:name "left-eye" :size 3} (find-part 0 [{:name "left-eye" :size 3}])))
+  (is (= {:name "left-eye" :size 3} (find-part -1 [{:name "left-eye" :size 3}])))
+
+  "should return empty map for a weight that exceeds weight of hobbit"
+  (is (= {} (find-part 4 [{:name "blah" :size 3}])))
+  )
+
+(deftest test-sort-body-parts-by-size
+  "should return a sorted list"
+  (is (= [{:name "head", :size 3}{:name "left-eye", :size 2}{:name "left-ear", :size 1}
+          {:name "mouth", :size -1}{:name "nose", :size -3}] (sort-body-parts-by-size [{:name "head" :size 3} {:name "left-eye" :size 2}
+                                                                                      {:name "left-ear" :size 1} {:name "mouth" :size -1}
+                                                                                      {:name "nose" :size -3}])))
+  )
+
+(deftest test-hit-a-hobbit
+  "should returns parts of passed in hobbit"
+  (is true? (some #(= "head" (:name %)) (hit-a-hobbit [{:name "head" :size 3} {:name "head" :size 2}]))))
 
 (defmethod report :begin-test-ns [m]
   (with-test-out
