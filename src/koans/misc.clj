@@ -8,8 +8,7 @@
 (defn decmaker
   "returns a function that takes one argument and deducts y from it"
   [y]
-  (fn [x] (- x y))
-  )
+  (partial - y))
 
 (defn mapset
   "returns a set of the result of mapping func over the list"
