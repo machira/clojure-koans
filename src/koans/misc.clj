@@ -14,7 +14,7 @@
 (defn mapset
   "returns a set of the result of mapping func over the list"
   [fnc lst]
-  (reduce #(into %1 (fnc %2)) #{} lst))
+  (reduce #(into %1 (vector (fnc %2))) #{} lst))
 
 (defn toInfix
   "Takes a list like (1 + 3 * 4 - 5) and transforms it into lists that Clojure needs"
