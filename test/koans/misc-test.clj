@@ -28,11 +28,9 @@
 
 (deftest test-toInfix
   "should return an expected list"
-  ;(is (= '(+ 1 2) (toInfix ('(1 + 2)))))
-  ;(is (= '(+ 1 2) "derp"))
-  ;(is (= '(* 3 2) (toInfix ('(3 * 2)))))
-  ;(is (= '(+ 1 (+ 2 (* 3 4))) (toInfix ('(1 + 2 + 3 * 4)))))
-
+  (is (= '(+ 1 2) (toInfix '(1 + 2))))
+  (is (= '(* 3 2) (toInfix '(3 * 2))))
+  (is (= '(+ 1 (+ 2 (* 3 4))) (toInfix '(1 + 2 + 3 * 4))))
   )
 
 

@@ -18,5 +18,5 @@
 
 (defn toInfix
   "Takes a list like (1 + 3 * 4 - 5) and transforms it into lists that Clojure needs"
-  [lst]
-  ("as"))
+  [[f s & l]]
+  (list s f (if (= 1 (count l)) (first l) (toInfix l))))
